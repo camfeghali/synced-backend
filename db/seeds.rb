@@ -10,10 +10,8 @@ require 'rspotify'
 
 
 RSpotify.authenticate(ENV["CLIENT_ID"], ENV["CLIENT_SECRET"])
-
 array_of_artists = ['Vinnie Paz']
 # 'Carlos Santana', 'Diddy', 'Kid Bloom', 'Frank Ocean', 'Car Seat Headrest', 'Hozier', 'Sufjan Stevens', 'DAOKO', 'JAY Z', 'Lenny Kravitz', 'Eminem', 'Beyonce', 'Damian Marley', 'Bob Marley', 'Leon Bridges', 'Lady Gaga', 'Bruno Mars', 'Sam Smith', 'NAS']
-
 
 array_of_artists.each do |artist|
   spotify_artist = RSpotify::Artist.search(artist).first
@@ -31,19 +29,5 @@ array_of_artists.each do |artist|
     end
   end
 end
-
-artists = RSpotify::Artist.search('Vinnie Paz')
-vinnie_p = artists.first
-
-vinnie_p_albums = vinnie_p.albums
-
-# puts "artist: #{vinnie_p.name} - popularity: #{vinnie_p.popularity} - genres: #{vinnie_p.genres}"
-
-
-# vinnie_p_albums.each do |album|
-#   puts "name: " + album.name
-#   # images[0] => 640x640 - [1] => 300x300 - [2] => 64x64
-#   puts album.images[0]["url"]
-# end
 
 puts "Done seeding"

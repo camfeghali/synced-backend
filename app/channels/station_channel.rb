@@ -5,6 +5,7 @@ class StationChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
+    raise "huh?"
     # @station.unsubscribe
     # Any cleanup needed when channel is unsubscribed
   end

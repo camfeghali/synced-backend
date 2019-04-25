@@ -13,11 +13,10 @@ class StationsController < ApplicationController
     render json: @station
   end
 
-  # def show
-  #   # byebug
-  #   station = Station.find(params["id"])
-  #   StationChannel.broadcast_to(station, {cat: "piss"})
-  #   render json: station
-  # end
+  def update
+    station = Station.find(params["id"])
+    StationChannel.broadcast_to(station, {cat: "lol"})
+    render json: station
+  end
 
 end

@@ -30,4 +30,5 @@ class StationsController < ApplicationController
     render json: station
   end
 
+
 end

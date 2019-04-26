@@ -19,15 +19,27 @@ class StationsController < ApplicationController
   end
 
   def update
-    # byebug
-    station = Station.find(params["id"])
-    state = {
-      song_url: params["song_url"],
-      timestamp: params["timestamp"],
-      playing: params["playing"]
-    }
-    StationChannel.broadcast_to(station, state)
-    render json: station
+    if params["joining"]
+      # byebug
+      station = Station.find(params["stationId"])
+      state = {
+        joining: true
+      }
+      StationChannel.broadcast_to(station, state)
+    else
+      # byebug
+      station = Station.find(params["id"])
+      # byebug
+      state = {
+        song_url: params["song_url"],
+        timestamp: params["timestamp"],
+        playing: params["playing"]
+      }
+      # byebug
+      StationChannel.broadcast_to(station, state)
+      render json: {flag: false}
+    end
+
   end
 
 

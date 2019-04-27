@@ -1,4 +1,5 @@
 class StationsController < ApplicationController
+  skip_before_action :authorized, only: [:create, :get_user, :index]
 
   def index
     stations = Station.all

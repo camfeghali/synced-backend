@@ -40,6 +40,10 @@ class StationsController < ApplicationController
       render json: {flag: false}
     end
 
+    def destroy
+      station = Station.find(params["stationId"])
+    end
+
   end
 
 

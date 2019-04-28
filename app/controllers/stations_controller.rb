@@ -1,5 +1,5 @@
 class StationsController < ApplicationController
-  skip_before_action :authorized, only: [:create, :get_user, :index]
+  skip_before_action :authorized, only: [:create, :get_user, :index, :update]
 
   def index
     stations = Station.all
@@ -20,23 +20,25 @@ class StationsController < ApplicationController
   end
 
   def update
+    # byebug
     if params["joining"]
       # byebug
       station = Station.find(params["stationId"])
       state = {
         joining: true
       }
+      puts "------------ ON JOIN BROADCASTING THE FOLLOWING STATE: #{state}"
+      puts "------------ TO THIS STATION ID: #{station.id}"
       StationChannel.broadcast_to(station, state)
     else
-      # byebug
       station = Station.find(params["id"])
-      # byebug
       state = {
         song_url: params["song_url"],
         timestamp: params["timestamp"],
         playing: params["playing"]
       }
       # byebug
+      puts "------------ ON SYNC BROADCASTING THE FOLLOWING STATE: #{state}"
       StationChannel.broadcast_to(station, state)
       render json: {flag: false}
     end

@@ -1,5 +1,6 @@
 class StationsController < ApplicationController
-  skip_before_action :authorized, only: [:create, :get_user, :index, :update]
+  skip_before_action :authorized, only: [:create, :get_user, :show, :index, :update, :destroy, :edit, :new]
+
 
   def index
     stations = Station.all
@@ -33,7 +34,7 @@ class StationsController < ApplicationController
     else
       station = Station.find(params["id"])
       state = {
-        song_url: params["song_url"],
+        trackUrl: params["trackUrl"],
         timestamp: params["timestamp"],
         playing: params["playing"]
       }
@@ -43,11 +44,19 @@ class StationsController < ApplicationController
       render json: {flag: false}
     end
 
-    def destroy
-      station = Station.find(params["stationId"])
-    end
 
   end
+  def destroy
+    # byebug
+    station = Station.find(params["id"])
+    # byebug
+    station.delete
+    all_stations = Station.all
+    ActionCable.server.broadcast("lobby", {stations: all_stations})
+    render json: station
+  end
+
+
 
 
 end

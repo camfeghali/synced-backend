@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   resources :users, only: [:create]
   post '/login', to: 'auth#create'
   get '/get_user', to: 'users#get_user'
+  get '/get_artists', to: 'artists#search'
+  get '/get_songs', to: 'songs#search'
+  get '/get_albums', to: 'albums#search'
   resources :songs
   resources :artists
   resources :songs

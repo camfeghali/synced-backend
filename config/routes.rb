@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   resources :songs
   resources :artists
   resources :songs
+  resources :playlists
   resources :albums
   resources :stations
+  resources :song_playlists
   get '/stations/:id', to: 'patients#join'
   mount ActionCable.server => '/cable'
 

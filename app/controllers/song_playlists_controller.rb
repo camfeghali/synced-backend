@@ -6,7 +6,12 @@ class SongPlaylistsController < ApplicationController
   end
 
   def create
-    byebug
+    # byebug
+    song = Song.find(params["songId"])
+    playlist = Playlist.find_by(name: params["playlistName"])
+    song_playlist = SongPlaylist.create(song_id: song.id, playlist_id: playlist.id)
+    # byebug
+    render json: song_playlist
   end
 
 end

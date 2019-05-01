@@ -1,5 +1,5 @@
 class SongPlaylistsController < ApplicationController
-  skip_before_action :authorized, only: [:create, :get_user, :index, :update]
+  skip_before_action :authorized, only: [:create, :get_user, :index, :update, :destroy]
 
   def index
     byebug
@@ -11,7 +11,16 @@ class SongPlaylistsController < ApplicationController
     playlist = Playlist.find_by(name: params["playlistName"])
     song_playlist = SongPlaylist.create(song_id: song.id, playlist_id: playlist.id)
     # byebug
-    render json: song_playlist
+    render json: {song: song, playlist: playlist}
+  end
+
+  def destroy
+    byebug
+    song = Song.find(params["songId"])
+    playlist = Playlist.find_by(name: params["playlistName"])
+    song_playlist = SongPlaylist.create(song_id: song.id, playlist_id: playlist.id)
+    # byebug
+    render json: {song: song, playlist: playlist}
   end
 
 end

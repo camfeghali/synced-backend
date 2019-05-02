@@ -1,5 +1,7 @@
 class PlaylistsController < ApplicationController
-  skip_before_action :authorized, only: [:create, :get_user, :index, :update, :destroy]
+  skip_before_action :authorized, only: [:create, :get_user, :index, :update, :destroy, :remove_song]
+
+
 
   def index
     #code
@@ -8,6 +10,19 @@ class PlaylistsController < ApplicationController
     user_playlists = Playlist.where(`user_id = ${user.id}`)
     # byebug
     render json: user_playlists
+  end
+
+  def remove_song
+    #code
+    join = SongPlaylist.find_by(song_id: params["songId"], playlist_id: params["playlistId"])
+    join.destroy
+    playlist = Playlist.find(params["playlistId"])
+    songs = playlist.songs
+    playlists = Playlist.all
+    PlaylistChannel.broadcast_to(playlist, songs)
+    # byebug
+    # join.delete
+    render json: playlists
   end
 
   def create
@@ -24,5 +39,6 @@ class PlaylistsController < ApplicationController
     playlist.destroy
     render json: playlist
   end
+
 
 end

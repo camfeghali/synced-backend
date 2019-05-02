@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/get_artists', to: 'artists#search'
   get '/get_songs', to: 'songs#search'
   get '/get_albums', to: 'albums#search'
+  delete '/remove_song', to: 'playlists#remove_song', as: 'remove_song'
   resources :songs
   resources :artists
   resources :songs

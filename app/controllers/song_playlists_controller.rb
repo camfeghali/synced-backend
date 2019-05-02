@@ -11,6 +11,7 @@ class SongPlaylistsController < ApplicationController
     playlist = Playlist.find_by(name: params["playlistName"])
     song_playlist = SongPlaylist.create(song_id: song.id, playlist_id: playlist.id)
     # byebug
+    PlaylistChannel.broadcast_to(playlist, song)
     render json: {song: song, playlist: playlist}
   end
 

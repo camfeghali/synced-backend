@@ -9,6 +9,7 @@ class AuthController < ApplicationController
       # byebug
       # encode token comes from ApplicationController
       token = encode_token({ user_id: @user.id })
+      ActionCable.server.broadcast("online_user", {user: @user})
       render json: { user: @user, jwt: token }, status: :accepted
     else
       render json: { message: 'Invalid username or password' }, status: :unauthorized

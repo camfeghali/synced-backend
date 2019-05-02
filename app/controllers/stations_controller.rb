@@ -40,6 +40,7 @@ class StationsController < ApplicationController
       }
       # byebug
       puts "------------ ON SYNC BROADCASTING THE FOLLOWING STATE: #{state}"
+      # byebug
       StationChannel.broadcast_to(station, state)
       render json: {flag: false}
     end

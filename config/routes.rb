@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users, only: [:create, :index]
   post '/login', to: 'auth#create'
+  get '/logout', to: 'auth#logout'
   get '/get_user', to: 'users#get_user'
   get '/get_artists', to: 'artists#search'
   get '/get_songs', to: 'songs#search'

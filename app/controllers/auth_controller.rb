@@ -1,5 +1,5 @@
 class AuthController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create, :logout]
 
   def create
     # byebug
@@ -20,6 +20,19 @@ class AuthController < ApplicationController
       render json: { message: 'Invalid username or password' }, status: :unauthorized
     end
     # byebug
+  end
+
+  def logout
+    # byebug
+    user = User.find_by(username: params["username"])
+    user.online = false
+    user.save
+    users = User.all.select do |user|
+      user.online == true
+    end.map do |user| user = {username: user.username, id: user.username} end
+    # byebug
+    ActionCable.server.broadcast("online_user", {user: user, offline: true})
+    render json: users
   end
 
   private

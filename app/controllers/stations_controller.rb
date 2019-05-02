@@ -1,6 +1,7 @@
 class StationsController < ApplicationController
   skip_before_action :authorized, only: [:create, :get_user, :show, :index, :update, :destroy, :edit, :new]
 
+  validates :host_id, uniqueness: true
 
   def index
     stations = Station.all

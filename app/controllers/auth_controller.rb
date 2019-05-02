@@ -8,8 +8,13 @@ class AuthController < ApplicationController
     if @user && @user.authenticate(user_login_params[:password])
       # byebug
       # encode token comes from ApplicationController
+      @user.online = true
+      @user.save
+      # byebug
       token = encode_token({ user_id: @user.id })
-      ActionCable.server.broadcast("online_user", {user: @user})
+      puts "======== PARAMS ARE: #{params} ========"
+      user = {username: @user.username, id: @user.id}
+      ActionCable.server.broadcast("online_user", {user: user})
       render json: { user: @user, jwt: token }, status: :accepted
     else
       render json: { message: 'Invalid username or password' }, status: :unauthorized

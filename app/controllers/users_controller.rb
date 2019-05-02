@@ -2,7 +2,10 @@ class UsersController < ApplicationController
   skip_before_action :authorized, only: [:create, :get_user, :index]
   #
   def index
-    @users = User.all
+    @users = User.all.select do |user|
+      user.online == true
+    end.map do |user| user = {username: user.username, id: user.username} end
+    # byebug
     render json: @users
   end
   #
@@ -11,7 +14,12 @@ class UsersController < ApplicationController
   # byebug
     if @user.valid?
       # byebug
+      @user.online = true
+      @user.save
+      # byebug
       token = JWT.encode({user_id: @user.id}, "secret")
+      user = {username: @user.username, id: @user.id}
+      ActionCable.server.broadcast("online_user", {user: user})
       render json: { user: {username: @user.username}, token: token}, status: :created
     else
       render json: { error: 'failed to create user' }, status: :not_acceptable

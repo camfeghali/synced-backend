@@ -33,7 +33,9 @@ class StationsController < ApplicationController
       StationChannel.broadcast_to(station, state)
     else
       station = Station.find(params["id"])
+      # byebug
       state = {
+        trackName: params["trackName"],
         trackUrl: params["trackUrl"],
         timestamp: params["timestamp"],
         playing: params["playing"]

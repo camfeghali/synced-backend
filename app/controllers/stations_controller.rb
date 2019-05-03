@@ -1,7 +1,6 @@
 class StationsController < ApplicationController
-  skip_before_action :authorized, only: [:create, :get_user, :show, :index, :update, :destroy, :edit, :new]
+  skip_before_action :authorized, only: [:create, :get_user, :show, :index, :update, :destroy, :edit, :new, :delete]
 
-  validates :host_id, uniqueness: true
 
   def index
     stations = Station.all
@@ -48,13 +47,19 @@ class StationsController < ApplicationController
 
 
   end
+
   def destroy
-    # byebug
-    station = Station.find(params["id"])
+
+  end
+
+  def delete
+    host = User.find_by(username: params["username"])
+    station = Station.find_by(host_id: host.id)
     # byebug
     station.delete
     all_stations = Station.all
     ActionCable.server.broadcast("lobby", {stations: all_stations})
+    # byebug
     render json: station
   end
 

@@ -32,7 +32,7 @@ class AuthController < ApplicationController
     end.map do |user| user = {username: user.username, id: user.username} end
     # byebug
     ActionCable.server.broadcast("online_user", {user: user, offline: true})
-    render json: users
+    render json: users  
   end
 
   private

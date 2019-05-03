@@ -34,7 +34,14 @@ class StationsController < ApplicationController
     else
       station = Station.find(params["id"])
       # byebug
+      # byebug
+      if params["trackName"]
+        track = Song.find_by(name: params["trackName"])
+        artist = track.album.artist
+      end
+      # byebug
       state = {
+        artist: artist.name,
         trackName: params["trackName"],
         trackUrl: params["trackUrl"],
         timestamp: params["timestamp"],

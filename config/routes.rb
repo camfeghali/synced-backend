@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  resources :follows
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users, only: [:create, :index]
   post '/login', to: 'auth#create'
   get '/logout', to: 'auth#logout'
   get '/get_user', to: 'users#get_user'
+  get '/online_users', to: 'users#online_users'
   get '/get_artists', to: 'artists#search'
   get '/get_songs', to: 'songs#search'
   get '/get_albums', to: 'albums#search'

@@ -1,14 +1,19 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create, :get_user, :index]
+  skip_before_action :authorized, only: [:create, :get_user, :index, :online_users]
   #
   def index
+    @users = User.all
+    render json: @users
+  end
+
+  def online_users
     @users = User.all.select do |user|
       user.online == true
     end.map do |user| user = {username: user.username, id: user.username} end
     # byebug
     render json: @users
   end
-  #
+
   def create
   @user = User.create(user_params)
   # byebug

@@ -39,15 +39,28 @@ class StationsController < ApplicationController
         track = Song.find_by(name: params["trackName"])
         artist = track.album.artist
       end
-      # byebug
-      state = {
-        artist: artist.name,
-        trackName: params["trackName"],
-        trackUrl: params["trackUrl"],
-        timestamp: params["timestamp"],
-        playing: params["playing"]
-      }
-      # byebug
+      if params["albumId"]
+        # byebug
+        album = Album.find(params["albumId"])
+        # byebug
+        state = {
+          artist: artist.name,
+          trackName: params["trackName"],
+          album: album.title,
+          trackUrl: params["trackUrl"],
+          timestamp: params["timestamp"],
+          playing: params["playing"]
+        }
+      else
+        state = {
+          artist: artist.name,
+          trackName: params["trackName"],
+          album: params["album"],
+          trackUrl: params["trackUrl"],
+          timestamp: params["timestamp"],
+          playing: params["playing"]
+        }
+      end
       puts "------------ ON SYNC BROADCASTING THE FOLLOWING STATE: #{state}"
       # byebug
       StationChannel.broadcast_to(station, state)

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'auth#logout'
   get '/get_user', to: 'users#get_user'
   get '/online_users', to: 'users#online_users'
+  get '/followees', to: 'users#followees'
   get '/get_artists', to: 'artists#search'
   get '/get_songs', to: 'songs#search'
   get '/get_albums', to: 'albums#search'

@@ -13,9 +13,10 @@ class AuthController < ApplicationController
       # byebug
       token = encode_token({ user_id: @user.id })
       puts "======== PARAMS ARE: #{params} ========"
-      user = {username: @user.username, id: @user.id}
+      user = {username: @user.username, id: @user.id, followees: @user.followees}
+      # byebug
       ActionCable.server.broadcast("online_user", {user: user})
-      render json: { user: @user, jwt: token }, status: :accepted
+      render json: { user: user, jwt: token }, status: :accepted
     else
       render json: { message: 'Invalid username or password' }, status: :unauthorized
     end
@@ -32,7 +33,7 @@ class AuthController < ApplicationController
     end.map do |user| user = {username: user.username, id: user.username} end
     # byebug
     ActionCable.server.broadcast("online_user", {user: user, offline: true})
-    render json: users  
+    render json: users
   end
 
   private

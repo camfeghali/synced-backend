@@ -1,10 +1,19 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create, :get_user, :index, :online_users]
+  skip_before_action :authorized, only: [:create, :get_user, :index, :followees, :online_users]
   #
   def index
     @users = User.all
     render json: @users
   end
+
+  # def followees
+  #   # byebug
+  #   user = User.find_by(username: params["username"])
+  #   byebug
+  #   followees = user.followees
+  #   byebug
+  #   render json: followees
+  # end
 
   def online_users
     @users = User.all.select do |user|
@@ -39,7 +48,7 @@ class UsersController < ApplicationController
     @user = User.find(id)
     if @user.valid?
       # byebug
-      render json: { user: {username: @user.username}}
+      render json: { user: {username: @user.username, followees: @user.followees}}
     end
   end
   #

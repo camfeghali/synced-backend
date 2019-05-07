@@ -10,8 +10,9 @@ require 'rspotify'
 
 
 RSpotify.authenticate(ENV["CLIENT_ID"], ENV["CLIENT_SECRET"])
-array_of_artists = ['Vinnie Paz']
-# 'Carlos Santana', 'Diddy', 'Kid Bloom', 'Frank Ocean', 'Car Seat Headrest', 'Hozier', 'Sufjan Stevens', 'DAOKO', 'JAY Z', 'Lenny Kravitz', 'Eminem', 'Beyonce', 'Damian Marley', 'Bob Marley', 'Leon Bridges', 'Lady Gaga', 'Bruno Mars', 'Sam Smith', 'NAS']
+array_of_artists = ['Vinnie Paz', 'Carlos Santana', 'Diddy', 'Kid Bloom', 'Frank Ocean', 'Car Seat Headrest', 'Hozier', 'Sufjan Stevens', 'DAOKO', 'JAY Z', 'Lenny Kravitz', 'Eminem', 'Beyonce', 'Damian Marley', 'Bob Marley', 'Leon Bridges', 'Lady Gaga', 'Bruno Mars', 'Sam Smith', 'NAS']
+
+
 
 array_of_artists.each do |artist|
   spotify_artist = RSpotify::Artist.search(artist).first

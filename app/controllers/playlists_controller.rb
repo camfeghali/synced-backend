@@ -4,9 +4,13 @@ class PlaylistsController < ApplicationController
 
 
   def index
-    user = User.find_by(username: params["username"])
-    user_playlists = Playlist.where(`user_id = ${user.id}`)
-    render json: user_playlists
+    # byebug
+    if params["username"] != "null"
+      user = User.find_by(username: params["username"])
+      user_playlists = Playlist.where(`user_id = ${user.id}`)
+      byebug
+      render json: user_playlists
+    end
   end
 
   def remove_song

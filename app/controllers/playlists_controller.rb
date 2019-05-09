@@ -7,8 +7,8 @@ class PlaylistsController < ApplicationController
     # byebug
     if params["username"] != "null"
       user = User.find_by(username: params["username"])
-      user_playlists = Playlist.where(`user_id = ${user.id}`)
-      byebug
+      user_playlists = Playlist.where(user_id: user.id)
+      # byebug
       render json: user_playlists
     end
   end

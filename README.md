@@ -22,15 +22,17 @@ Link to demo: https://youtube....... remains to be hosted
 
 ### Features
 
-- Users can look up songs seeded in the database, select and play it. 
-- Users can create / delete playlists.
-- Users can add / remove songs from a playlist.
-- Users can see which stations are available.
-- Users can see who is online.
-- Users can broadcast a station.
-- Users can see online stations' activity (artist, song name and album).
-- Users can join a station and be synced to it.
-- There is no limit on how many people can join a station, but more than four users slows down your machine!
+- Users can:
+
+  - Look up songs seeded in the database, select and play it. 
+  - Create / delete playlists.
+  - Add / remove songs from a playlist.
+  - See which stations are available.
+  - See who is online.
+  - Broadcast a station.
+  - See online stations' activity (artist, song name and album).
+  - Join a station and be synced to it.
+  - There is no limit on how many people can join a station, but more than four users slows down your machine!
 
 ### Installation
 - Clone this repository and the frontend found here: https://github.com/camfeghali/synced-frontend
